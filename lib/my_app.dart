@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:route_aware/data/app_counter.dart';
-import 'package:routefly/routefly.dart';
+import 'package:route_aware/ui/config/config_page.dart';
+import 'package:route_aware/ui/home/home_page.dart';
+import 'package:route_aware/ui/home/tab_counter/tab_counter_page.dart';
+import 'package:route_aware/ui/home/tab_other/tab_other_page.dart';
 
-import 'my_app.route.dart';
-
-part 'my_app.g.dart';
-
-@Main('lib/ui')
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
@@ -26,16 +24,18 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      routerConfig: Routefly.routerConfig(
-        routes: routes,
-        initialPath: routePaths.home.path,
-      ),
-
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
+      initialRoute: HomePage.routeName,
+      routes: {
+        HomePage.routeName: (_) => const HomePage(),
+        TabCounterPage.routeName: (_) => const TabCounterPage(),
+        TabOtherPage.routeName: (_) => const TabOtherPage(),
+        ConfigPage.routeName: (_) => const ConfigPage(),
+      },
     );
   }
 }
