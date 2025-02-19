@@ -4,6 +4,8 @@ import 'package:route_aware/data/app_counter.dart';
 class ConfigPage extends StatefulWidget {
   const ConfigPage({super.key});
 
+  static const routeName = '/config';
+
   @override
   State<ConfigPage> createState() => _ConfigPageState();
 }

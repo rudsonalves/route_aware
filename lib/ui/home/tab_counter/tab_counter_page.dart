@@ -6,6 +6,8 @@ import 'package:route_aware/data/app_counter.dart';
 class TabCounterPage extends StatefulWidget {
   const TabCounterPage({super.key});
 
+  static const routeName = '/tab_counter';
+
   @override
   State<TabCounterPage> createState() => _TabCounterPageState();
 }

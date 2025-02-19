@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:route_aware/data/app_counter.dart';
-import 'package:route_aware/my_app.dart';
+import 'package:route_aware/ui/config/config_page.dart';
 import 'package:route_aware/ui/home/tab_counter/tab_counter_page.dart';
 import 'package:route_aware/ui/home/tab_other/tab_other_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  static const routeName = '/home';
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -32,7 +34,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   }
 
   void _toConfigPage() {
-    Navigator.pushNamed(context, routePaths.config);
+    Navigator.pushNamed(context, ConfigPage.routeName);
   }
 
   @override
