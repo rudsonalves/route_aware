@@ -13,8 +13,11 @@ class AppCounter {
   final _message = ValueNotifier<MessageType>(MessageType.none);
   final _counter = ValueNotifier<int>(0);
 
+  final RouteObserver<PageRoute> _routeObserver = RouteObserver<PageRoute>();
+
   ValueNotifier<MessageType> get message => _message;
   ValueNotifier<int> get counter => _counter;
+  RouteObserver get routeObserver => _routeObserver;
 
   void dispose() {
     _counter.dispose();

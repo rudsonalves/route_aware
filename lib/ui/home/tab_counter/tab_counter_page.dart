@@ -13,8 +13,10 @@ class TabCounterPage extends StatefulWidget {
 }
 
 class _TabCounterPageState extends State<TabCounterPage>
-    with AutomaticKeepAliveClientMixin {
+    with AutomaticKeepAliveClientMixin, RouteAware {
   final app = AppCounter.instance;
+
+  bool _shouldRefresh = false;
 
   @override
   void initState() {
@@ -24,19 +26,38 @@ class _TabCounterPageState extends State<TabCounterPage>
   }
 
   void _newMessage() {
-    if (app.message.value == MessageType.changeValue) {
+    if (app.message.value == MessageType.changeValue && !_shouldRefresh) {
+      _shouldRefresh = true;
       log('Change value');
-      app.setMessageType(MessageType.none);
-      app.reloadCounter();
-      setState(() {});
+    }
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    // Subscreva a rota atual para ser notificado
+    final ModalRoute<dynamic>? route = ModalRoute.of(context);
+    if (route is PageRoute) {
+      app.routeObserver.subscribe(this, route);
     }
   }
 
   @override
   void dispose() {
+    app.routeObserver.unsubscribe(this);
     app.message.removeListener(_newMessage);
 
     super.dispose();
+  }
+
+  @override
+  void didPopNext() {
+    if (_shouldRefresh) {
+      _shouldRefresh = false;
+      app.sendMessage(MessageType.none);
+      app.reloadCounter();
+      setState(() {});
+    }
   }
 
   @override
